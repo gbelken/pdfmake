@@ -12659,7 +12659,7 @@ DocumentContext.prototype.addPage = function (pageSize) {
         }
 
         if (this.pageMarginsFkt){
-             this.pageMargins = this.pagerMarginsFkt(this.pages.length);
+             this.pageMargins = this.pageMarginsFkt(this.getCurrentPage(), this.pages.length);
         }
 
         page.pageMargins = Object.assign( {} , this.pageMargins );
