@@ -193,15 +193,18 @@ LayoutBuilder.prototype.addStaticRepeatable = function (headerOrFooter, sizeFunc
 };
 
 LayoutBuilder.prototype.addDynamicRepeatable = function (nodeGetter, sizeFunction) {
+	
 	var pages = this.writer.context().pages;
-
+	
 	for (var pageIndex = 0, l = pages.length; pageIndex < l; pageIndex++) {
 		this.writer.context().page = pageIndex;
 
 		var node = nodeGetter(pageIndex + 1, l, this.writer.context().pages[pageIndex].pageSize);
 
+		
+		
 		if (node) {
-			var sizes = sizeFunction(this.writer.context().getCurrentPage().pageSize, this.pageMargins);
+			var sizes = sizeFunction(this.writer.context().getCurrentPage().pageSize, this.writer.context().getCurrentPage().pageMargins);
 			this.writer.beginUnbreakableBlock(sizes.width, sizes.height);
 			node = this.docPreprocessor.preprocessDocument(node);
 			this.processNode(this.docMeasure.measureDocument(node));
